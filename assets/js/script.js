@@ -7,39 +7,41 @@ var questions = [
     {q: 'How many roomates do we have?', a1: '2', a2: '4', a3: '1', a4: '6', ra: '1'},
     {q: 'What color is the grass?', a1: 'Pink', a2: 'Black', a3: 'Green', a4: 'Blue', ra: '3'},
     {q: 'How long have we been dating', a1: '1', a2: '2', a3: '3', a4: '4', ra: '3'}
-]
+];
 
 var score = 0;
 
 var timeLeft = 75;
 
-var userChoice = 0
+var userChoice = 0;
 
-var timerEl = document.querySelector('#timer')
+var timerEl = document.querySelector('#timer');
 var questionEl = document.querySelector('#question');
-var ans1El = document.querySelector('#answer1')
-var ans2El = document.querySelector('#answer2')
-var ans3El = document.querySelector('#answer3')
-var ans4El = document.querySelector('#answer4')
+var ans1El = document.querySelector('#answer1');
+var ans2El = document.querySelector('#answer2');
+var ans3El = document.querySelector('#answer3');
+var ans4El = document.querySelector('#answer4');
 
-var i = 0
+var i = 0;
 
 var checkAns = function() {
-    console.log("hello")
+    console.log("hello");
     if (userChoice === questions[i].ra) {
         //score++;
         
-        console.log(i)
+        console.log('Correct Answer');
     }
     else{
+        console.log("Incorrect Answer");
         timeLeft = timeLeft - 10;
     }
     
 }
 
 var displayQuesAns = function() { 
-    const once=true
-    userChoice = 0   
+    console.log("In the displayQuesAns function.");
+    const once=true;
+    userChoice = 0;   
     questionEl.textContent = questions[i].q;
     ans1El.textContent = "1. " + questions[i].a1;
     ans2El.textContent = "2. " + questions[i].a2;
@@ -50,23 +52,23 @@ var displayQuesAns = function() {
         userChoice = '1';
         checkAns();
         //i++
-        console.log('answer1')
-        displayQuesAns()
+        console.log(i + " ans1El");
+        displayQuesAns();
     }, once);
 
     ans2El.addEventListener('click', function() {
         userChoice = '2';
         checkAns();
         //i++
-        console.log('answer2')
-        displayQuesAns()
+        console.log(i + " ans2El");
+        displayQuesAns();
     }, once);
 
     ans3El.addEventListener('click', function() {
         userChoice = '3';
         checkAns();
         //i++;
-        console.log('answer3')
+        console.log(i + " ans3El");
         displayQuesAns();
     }, once);
 
@@ -74,10 +76,10 @@ var displayQuesAns = function() {
         userChoice = '4';
         checkAns();
         //i++;
-        console.log('answer4')
-        displayQuesAns()
+        console.log(i + " ans4El");
+        displayQuesAns();
     }, once);
-    i++
+    i++;
     
     // 
 }
