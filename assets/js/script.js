@@ -15,6 +15,7 @@ var timeLeft = 75;
 
 var userChoice = 0;
 
+// pulls elements from html
 var timerEl = document.querySelector('#timer');
 var questionEl = document.querySelector('#question');
 var ans1El = document.querySelector('#answer1');
@@ -24,6 +25,7 @@ var ans4El = document.querySelector('#answer4');
 
 var i = 0;
 
+// compares user answers to correct answer
 var checkAns = function() {
     console.log("hello");
     if (userChoice === questions[i].ra) {
@@ -38,6 +40,7 @@ var checkAns = function() {
     
 }
 
+// pushes question and answers to webpage 
 var displayQuesAns = function() { 
     console.log("In the displayQuesAns function.");
     const once=true;
@@ -48,6 +51,7 @@ var displayQuesAns = function() {
     ans3El.textContent = "3. " + questions[i].a3;
     ans4El.textContent = "4. " + questions[i].a4;
 
+// creates clickable event on button
     ans1El.addEventListener('click', function() {
         userChoice = '1';
         checkAns();
@@ -83,8 +87,8 @@ var displayQuesAns = function() {
     
     // 
 }
-
-/*var timeInterval = setInterval(function() {
+// simple timer
+var timeInterval = setInterval(function() {
     console.log(i)
     if (timeLeft > 1) {
         timerEl.textContent = timeLeft + ' seconds left.';
@@ -98,6 +102,6 @@ var displayQuesAns = function() {
         clearInterval(timeInterval);
         timerEl.textContent = 'Time is up!'
     }
-}, 1000);*/
+}, 1000);
 
-displayQuesAns()
+displayQuesAns();
