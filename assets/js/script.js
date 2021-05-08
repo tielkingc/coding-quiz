@@ -6,10 +6,11 @@ var questions = [
     {q: 'How many cats do we have?', a1: '1', a2: '2', a3: '3', a4: '4', ra: '3'},
     {q: 'How many roomates do we have?', a1: '2', a2: '4', a3: '1', a4: '6', ra: '1'},
     {q: 'What color is the grass?', a1: 'Pink', a2: 'Black', a3: 'Green', a4: 'Blue', ra: '3'},
-    {q: 'How long have we been dating', a1: '1', a2: '2', a3: '3', a4: '4', ra: '3'}
+    {q: 'How long have we been dating', a1: '1', a2: '2', a3: '3', a4: '4', ra: '3'},
+    {q: ""}
 ];
 
-var score = 0;
+var score = 1;
 
 var timeLeft = 75;
 
@@ -22,71 +23,101 @@ var ans1El = document.querySelector('#answer1');
 var ans2El = document.querySelector('#answer2');
 var ans3El = document.querySelector('#answer3');
 var ans4El = document.querySelector('#answer4');
+var scoreEl = document.querySelector('#score');
 
-var i = 0;
+ var i = 0;
+ 
+ //clears the screens of questions and answers
+var clearScreen = function() {
+    questionEl.textContent = "Congratulations! Your score is: " + score;
+    var removeElement = function(elementId) {
+        var element = document.getElementById(elementId);
+        element.parentNode.removeChild(element);
+    };
+    //removes buttons from screen
+    removeElement('answer1');
+    removeElement('answer2');
+    removeElement('answer3');
+    removeElement('answer4');
+}
 
 // compares user answers to correct answer
 var checkAns = function() {
     console.log("hello");
-    if (userChoice === questions[i].ra) {
-        //score++;
+    if (i < 8) {
         
-        console.log('Correct Answer');
-    }
-    else{
-        console.log("Incorrect Answer");
-        timeLeft = timeLeft - 10;
-    }
+        if (userChoice === questions[i].ra && i != 7) {
+            score++;
+            console.log('Correct Answer');
+            i++
+            questionEl.textContent = questions[i].q;
+            ans1El.textContent = "1. " + questions[i].a1;
+            ans2El.textContent = "2. " + questions[i].a2;
+            ans3El.textContent = "3. " + questions[i].a3;
+            ans4El.textContent = "4. " + questions[i].a4;
+            scoreEl.textContent = "Score: " + score;
+        }
+        else if (i != 7) {
+            console.log("Incorrect Answer");
+            timeLeft = timeLeft - 10;
+            i++
+            questionEl.textContent = questions[i].q;
+            ans1El.textContent = "1. " + questions[i].a1;
+            ans2El.textContent = "2. " + questions[i].a2;
+            ans3El.textContent = "3. " + questions[i].a3;
+            ans4El.textContent = "4. " + questions[i].a4;
+            scoreEl.textContent = "Score: " + score;
+        }
+        else {
+            clearScreen();
+        }
+    }    
     
 }
 
 // pushes question and answers to webpage 
-var displayQuesAns = function() { 
-    console.log("In the displayQuesAns function.");
-    const once=true;
-    userChoice = 0;   
-    questionEl.textContent = questions[i].q;
-    ans1El.textContent = "1. " + questions[i].a1;
-    ans2El.textContent = "2. " + questions[i].a2;
-    ans3El.textContent = "3. " + questions[i].a3;
-    ans4El.textContent = "4. " + questions[i].a4;
+console.log("In the displayQuesAns function.");
+userChoice = 0;   
+questionEl.textContent = questions[i].q;
+ans1El.textContent = "1. " + questions[i].a1;
+ans2El.textContent = "2. " + questions[i].a2;
+ans3El.textContent = "3. " + questions[i].a3;
+ans4El.textContent = "4. " + questions[i].a4;
+scoreEl.textContent = "Score: " + score;
 
 // creates clickable event on button
-    ans1El.addEventListener('click', function() {
-        userChoice = '1';
-        checkAns();
-        //i++
-        console.log(i + " ans1El");
-        displayQuesAns();
-    }, once);
+ans1El.addEventListener('click', function() {
+    userChoice = '1';
+    checkAns();
+    //i++;
+    console.log(i + " ans1El");
+    console.log("I ran");
+});
 
-    ans2El.addEventListener('click', function() {
-        userChoice = '2';
-        checkAns();
-        //i++
-        console.log(i + " ans2El");
-        displayQuesAns();
-    }, once);
+ans2El.addEventListener('click', function() {
+    userChoice = '2';
+    checkAns();
+    //i++;
+    console.log(i + " ans1El");
+    console.log("I ran");
+});
 
-    ans3El.addEventListener('click', function() {
-        userChoice = '3';
-        checkAns();
-        //i++;
-        console.log(i + " ans3El");
-        displayQuesAns();
-    }, once);
+ans3El.addEventListener('click', function() {
+    userChoice = '3';
+    checkAns();
+    //i++;
+    console.log(i + " ans1El");
+    console.log("I ran");
+});
 
-    ans4El.addEventListener('click', function() {
-        userChoice = '4';
-        checkAns();
-        //i++;
-        console.log(i + " ans4El");
-        displayQuesAns();
-    }, once);
-    i++;
-    
-    // 
-}
+ans4El.addEventListener('click', function() {
+    userChoice = '4';
+    checkAns();
+    //i++;
+    console.log(i + " ans1El");
+    console.log("I ran");
+});
+
 // simple timer
 var timeInterval = setInterval(function() {
     console.log(i)
@@ -101,7 +132,6 @@ var timeInterval = setInterval(function() {
     else {
         clearInterval(timeInterval);
         timerEl.textContent = 'Time is up!'
+        clearScreen();
     }
 }, 1000);
-
-displayQuesAns();
