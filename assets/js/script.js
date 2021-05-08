@@ -11,7 +11,7 @@ var questions = [
 
 var score = 1;
 
-var timeLeft = 75;
+var timeLeft = 750;
 
 var userChoice = 0;
 
@@ -23,6 +23,9 @@ var ans2El = document.querySelector('#answer2');
 var ans3El = document.querySelector('#answer3');
 var ans4El = document.querySelector('#answer4');
 var scoreEl = document.querySelector('#score');
+var statusEl = document.querySelector('#displayStatus'); 
+var textAreaEl = document.querySelector('#text-area');
+var formEl = document.querySelector('#initials');
 
  var i = 0;
 
@@ -42,12 +45,10 @@ var clearScreen = function() {
 
 // compares user answers to correct answer
 var checkAns = function() {
-    console.log("hello");
     if (i < 8) {
         
         if (userChoice === questions[i].ra && i != 7) {
             score++;
-            console.log('Correct Answer');
             i++
             questionEl.textContent = questions[i].q;
             ans1El.textContent = "1. " + questions[i].a1;
@@ -55,9 +56,9 @@ var checkAns = function() {
             ans3El.textContent = "3. " + questions[i].a3;
             ans4El.textContent = "4. " + questions[i].a4;
             scoreEl.textContent = "Score: " + score;
+            statusEl.textContent = "Correct!";
         }
         else if (i != 7) {
-            console.log("Incorrect Answer");
             timeLeft = timeLeft - 10;
             i++
             questionEl.textContent = questions[i].q;
@@ -66,18 +67,24 @@ var checkAns = function() {
             ans3El.textContent = "3. " + questions[i].a3;
             ans4El.textContent = "4. " + questions[i].a4;
             scoreEl.textContent = "Score: " + score;
+            statusEl.textContent = "Incorrect."
         }
         else {
             clearScreen();
             clearInterval(timeInterval);
             timerEl.textContent = ''
+            
+            textAreaEl.textContent = "Please enter your initials: "; 
+            textAreaEl.appendChild(document.createElement("textarea"));
+            var btn = document.createElement("BUTTON");
+            btn.innerHTML = "Submit score!";
+            formEl.appendChild(btn);
         }
     }    
     
 }
 
 // pushes question and answers to webpage 
-console.log("In the displayQuesAns function.");
 userChoice = 0;   
 questionEl.textContent = questions[i].q;
 ans1El.textContent = "1. " + questions[i].a1;
@@ -91,37 +98,28 @@ ans1El.addEventListener('click', function() {
     userChoice = '1';
     checkAns();
     //i++;
-    console.log(i + " ans1El");
-    console.log("I ran");
 });
 
 ans2El.addEventListener('click', function() {
     userChoice = '2';
     checkAns();
     //i++;
-    console.log(i + " ans1El");
-    console.log("I ran");
 });
 
 ans3El.addEventListener('click', function() {
     userChoice = '3';
     checkAns();
     //i++;
-    console.log(i + " ans1El");
-    console.log("I ran");
 });
 
 ans4El.addEventListener('click', function() {
     userChoice = '4';
     checkAns();
     //i++;
-    console.log(i + " ans1El");
-    console.log("I ran");
 });
 
 // simple timer
 var timeInterval = setInterval(function() {
-    console.log(i)
     if (timeLeft > 1) {
         timerEl.textContent = timeLeft + ' seconds left.';
         timeLeft--
