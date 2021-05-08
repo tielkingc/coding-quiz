@@ -6,8 +6,7 @@ var questions = [
     {q: 'How many cats do we have?', a1: '1', a2: '2', a3: '3', a4: '4', ra: '3'},
     {q: 'How many roomates do we have?', a1: '2', a2: '4', a3: '1', a4: '6', ra: '1'},
     {q: 'What color is the grass?', a1: 'Pink', a2: 'Black', a3: 'Green', a4: 'Blue', ra: '3'},
-    {q: 'How long have we been dating', a1: '1', a2: '2', a3: '3', a4: '4', ra: '3'},
-    {q: ""}
+    {q: 'How long have we been dating', a1: '1', a2: '2', a3: '3', a4: '4', ra: '3'}
 ];
 
 var score = 1;
@@ -26,7 +25,7 @@ var ans4El = document.querySelector('#answer4');
 var scoreEl = document.querySelector('#score');
 
  var i = 0;
- 
+
  //clears the screens of questions and answers
 var clearScreen = function() {
     questionEl.textContent = "Congratulations! Your score is: " + score;
@@ -70,6 +69,8 @@ var checkAns = function() {
         }
         else {
             clearScreen();
+            clearInterval(timeInterval);
+            timerEl.textContent = ''
         }
     }    
     
