@@ -9,7 +9,7 @@ var questions = [
     {q: 'How long have we been dating', a1: '1', a2: '2', a3: '3', a4: '4', ra: '3'}
 ];
 
-var score = 1;
+var score = 0;
 
 var timeLeft = 750;
 
@@ -42,11 +42,12 @@ var clearScreen = function() {
     removeElement('answer2');
     removeElement('answer3');
     removeElement('answer4');
+    removeElement('score')
 }
 
 // compares user answers to correct answer
 var checkAns = function() {
-    if (i <= 8) {
+    if (i <= 9) {
         
         if (userChoice === questions[i].ra && i != 7) {
             score++;
@@ -70,12 +71,20 @@ var checkAns = function() {
             scoreEl.textContent = "Score: " + score;
             statusEl.textContent = "Incorrect."
         }
+        else if (i === 7 && userChoice === questions[i].ra) {
+            score++;
+            clearScreen();
+            clearInterval(timeInterval);
+            timerEl.textContent = ''
+            scoreSub();
+        }
         else {
             clearScreen();
             clearInterval(timeInterval);
             timerEl.textContent = ''
             scoreSub();
         }
+        console.log(i)
     }    
     
 }
@@ -92,26 +101,26 @@ scoreEl.textContent = "Score: " + score;
 // creates clickable event on button
 ans1El.addEventListener('click', function() {
     userChoice = '1';
-    checkAns();
     //i++;
+    checkAns();
 });
 
 ans2El.addEventListener('click', function() {
     userChoice = '2';
-    checkAns();
     //i++;
+    checkAns();
 });
 
 ans3El.addEventListener('click', function() {
     userChoice = '3';
-    checkAns();
     //i++;
+    checkAns();
 });
 
 ans4El.addEventListener('click', function() {
     userChoice = '4';
-    checkAns();
     //i++;
+    checkAns();
 });
 
 // simple timer
