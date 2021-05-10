@@ -26,6 +26,7 @@ var scoreEl = document.querySelector('#score');
 var statusEl = document.querySelector('#displayStatus'); 
 var textAreaEl = document.querySelector('#text-area');
 var formEl = document.querySelector('#initials');
+var listEl = document.querySelector('#listScore');
 
  var i = 0;
 
@@ -45,7 +46,7 @@ var clearScreen = function() {
 
 // compares user answers to correct answer
 var checkAns = function() {
-    if (i < 8) {
+    if (i <= 8) {
         
         if (userChoice === questions[i].ra && i != 7) {
             score++;
@@ -73,12 +74,7 @@ var checkAns = function() {
             clearScreen();
             clearInterval(timeInterval);
             timerEl.textContent = ''
-            
-            textAreaEl.textContent = "Please enter your initials: "; 
-            textAreaEl.appendChild(document.createElement("textarea"));
-            var btn = document.createElement("BUTTON");
-            btn.innerHTML = "Submit score!";
-            formEl.appendChild(btn);
+            scoreSub();
         }
     }    
     
@@ -134,3 +130,40 @@ var timeInterval = setInterval(function() {
         clearScreen();
     }
 }, 1000);
+
+var scoreSub = function() {
+    var removeElement = function(elementId) {
+        var element = document.getElementById(elementId);
+        element.parentNode.removeChild(element);
+    };
+    textAreaEl.textContent = "Please enter your initials: ";
+    var initialBox = document.createElement("textarea");
+    initialBox.classList.add("score-box")
+    textAreaEl.appendChild(initialBox);
+    var btn = document.createElement("BUTTON");
+    btn.classList.add("score-button");
+    btn.innerHTML = "Submit score!";
+    formEl.appendChild(btn);
+    document.querySelector('.score-button').addEventListener('click', function() {
+        var userIni = initialBox.value;
+        var obj = {init: userIni, userScore: score};
+        var savedScores = localStorage.getItem("scores");
+        if (!savedScores) {
+            var scoreList = []
+        }
+        else {
+            var savedScoresList = localStorage.getItem("scores");
+            savedScores = JSON.parse(savedScoresList);
+            scoreList = savedScores;
+        }
+        scoreList.push(obj);
+        localStorage.setItem("scores", JSON.stringify(scoreList));
+        removeElement("initials");
+        for (var x = 0; x < scoreList.length; x++) {
+            var inScore = document.createElement('li');
+            inScore.textContent = scoreList[x].init + ":  " + scoreList[x].userScore;
+            listEl.append(inScore);
+        }
+    });
+    
+};
